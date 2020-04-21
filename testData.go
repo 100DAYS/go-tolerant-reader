@@ -39,5 +39,6 @@ var data = `
     "expensive": 10.00,
 	"time": "2019-12-31T10:10:22+02:00",
 	"date": "2019-10-30",
-	"int": 23
+	"int": 23,
+    "intFromString": "42"
 }`

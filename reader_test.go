@@ -13,6 +13,7 @@ type TestMsg struct {
 	D time.Time `jsonpath:"$.time"`
 	E time.Time `jsonpath:"$.date"`
 	F int       `jsonpath:"$.int"`
+	G int       `jsonpath:"$.intFromString"`
 }
 
 func TestReader(t *testing.T) {
@@ -58,5 +59,9 @@ func TestReader(t *testing.T) {
 
 	if o.F != 23 {
 		t.Errorf("int incorrect: %v", o.F)
+	}
+
+	if o.G != 42 {
+		t.Errorf("intfromString incorrect: %v", o.G)
 	}
 }

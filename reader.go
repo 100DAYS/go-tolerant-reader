@@ -14,7 +14,7 @@ const PREFIX = "jsonpath"
 
 func assign(target reflect.Value, val reflect.Value) error {
 	if target.Kind() != val.Kind() {
-		return fmt.Errorf("Target %s is not matchng value %s", target.Kind(), val.Kind())
+		return fmt.Errorf("Target %s is not matching value %s.", target.Kind(), val.Kind())
 	}
 	target.Set(val)
 	return nil
@@ -80,7 +80,14 @@ func Unmarshal(data map[string]interface{}, o interface{}) error {
 				}
 				break
 			case reflect.Int:
-				if reflect.ValueOf(res).Kind() != reflect.Float64 {
+				if reflect.ValueOf(res).Kind() == reflect.String {
+					s, err := strconv.ParseInt(res.(string), 10, 64)
+					if err != nil {
+						return fmt.Errorf("Field %s : Failed to convert String to int", typeOfS.Field(i).Name)
+					}
+					v.Field(i).SetInt(int64(s))
+					break
+				} else if reflect.ValueOf(res).Kind() != reflect.Float64 {
 					return fmt.Errorf("Field %s : Int must be numeric in Json, got %s",
 						typeOfS.Field(i).Name,
 						reflect.ValueOf(res).Kind())
